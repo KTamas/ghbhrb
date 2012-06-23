@@ -1,4 +1,4 @@
-<h1 style="text-align: center; font-family: Helvetica; font-size: 24px;">List of available songs</h1>
+<h1 style="text-align: center; font-family: Helvetica; font-size: 24px; padding-top: 8px;">List of available songs</h1>
 <a style="font-family: Helvetica; font-size: 16px;" href="#" id="allsongs">All</a>
 <% @games.each do |game| %>
   <a style="font-family: Helvetica; font-size: 16px;" href="#" id="<%= game.name.gsub(' ', '_').gsub('.', '_').gsub('-', '_') %>"><%= game.name %></a>
