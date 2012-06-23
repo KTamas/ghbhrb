@@ -1,0 +1,44 @@
+<h1 style="text-align: center; font-family: Helvetica; font-size: 24px;">List of available songs</h1>
+<a style="font-family: Helvetica; font-size: 16px;" href="#" id="allsongs">All</a>
+<% @games.each do |game| %>
+  <a style="font-family: Helvetica; font-size: 16px;" href="#" id="<%= game.name.gsub(' ', '_').gsub('.', '_').gsub('-', '_') %>"><%= game.name %></a>
+<% end %>
+
+<table id="songs" width="100%">
+  <thead>
+    <tr>
+      <th>Artist</th>
+      <th>Title</th>
+      <th>Tier</th>
+      <th>Game</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @songs.each do |song| %>
+    <tr>
+      <th><%= song.artist %></th>
+      <th><%= song.title %></th>
+      <th><%= song.tier %></th>
+      <th><%= song.game.name %></th>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<script type="text/javascript">
+$(document).ready(function() {
+  var songtable = $("#songs").dataTable({
+    "bPaginate": false,
+    "bJQueryUI": true,
+    "aaSorting": [[3, 'asc']]
+  });
+  <% @games.each do |game| %>
+    $("#<%= game.name.gsub(' ', '_').gsub('.', '_').gsub('-', '_') %>").click(function(event) {
+      songtable.fnFilter("<%= game.name %>", 3, false, false);
+    });
+  <% end %>
+  $("#allsongs").click(function(event) {
+    songtable.fnFilter("", 3);
+  });
+  $('a').button();
+});
+</script>
